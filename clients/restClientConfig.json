@@ -1,0 +1,13 @@
+{
+    "restClients": [
+        {
+            "url": "http://pvision.earthtechint.com:3000/api/units?access_token=force"
+        },
+        {
+            "url": "http://pvision.earthtechint.com:3000/api/missions?access_token=force"
+        },
+        {
+            "url": "http://pvision.earthtechint.com:3000/api/forcepackages?access_token=force"
+        }
+    ]
+}
