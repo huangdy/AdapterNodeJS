@@ -3,7 +3,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var restClient = require('./clients/restClient');
+var RestClient = require('./restClient/restClient');
+var Persistence = require('./persistence/persistence');
 var server = express();
 
 server.use(bodyParser.json());
@@ -18,5 +19,6 @@ server.use(cookieParser());
 var port = process.env.PORT || 8081;
 server.listen(port, function () {
     console.log('Adapter is ready on port: ' + port);
-    restClient.retrieveData();
+    Persistence.init();
+    RestClient.retrieveData();
 });

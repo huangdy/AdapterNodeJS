@@ -3,26 +3,26 @@
 var Promise = require('bluebird');
 var Client = require('node-rest-client').Client;
 var restClientConfig = require('./restClientConfig.json');
+var Persistence = require('../persistence/persistence');
 
 module.exports = (function () {
 
     var mine = {};
     var rClient = new Client();
 
-    function getData(url) {
+    function getData(c) {
 
-        rClient.get(url, function (rows, res) {
-            console.log("Total counts: " + rows.length);
-            console.log("Response: " + res);
-            var keyMap = {};
+        rClient.get(c.url, function (rows, res) {
+            console.log('Total counts: ' + rows.length);
+            console.log('Response: ' + res);
+            var keyArray = [];
             for (var j = 0; j < rows.length; j++) {
-                // console.log("data: " + JSON.stringify(rows[j]));
                 for (var key in rows[j]) {
-                    keyMap[key] = 1;
-                    // console.log("[" + key + "]: " + rows[j][key]);
+                    keyArray.push(key);
                 }
             }
-            console.log("Key Map: " + JSON.stringify(keyMap));
+            console.log('Key List: ' + JSON.stringify(keyArray));
+            Persistence.put(c.type, keyArray);
         }).on('error', function (err) {
             console.log('something went wrong on the request', err.request.options);
         });
@@ -36,8 +36,8 @@ module.exports = (function () {
     mine.retrieveData = function () {
 
         for (var i = 0; i < restClientConfig.restClients.length; i++) {
-            console.log("Rest URL: " + restClientConfig.restClients[i].url);
-            getData(restClientConfig.restClients[i].url);
+            console.log('Rest URL: ' + JSON.stringify(restClientConfig.restClients[i]));
+            getData(restClientConfig.restClients[i]);
         }
     }
 
