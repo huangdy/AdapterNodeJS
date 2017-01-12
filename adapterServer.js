@@ -24,4 +24,3 @@ server.listen(port, function () {
     Persistence.init();
     RestClient.retrieveData();
 });
-/* this is after version v1 */
