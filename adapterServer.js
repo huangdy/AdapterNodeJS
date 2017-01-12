@@ -18,7 +18,6 @@ server.use(cookieParser());
 
 var port = process.env.PORT || 8081;
 server.listen(port, function () {
-    console.log('Adapter is ready on port: ' + port);
     Persistence.init();
     RestClient.retrieveData();
 });

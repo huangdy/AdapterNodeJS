@@ -1,6 +1,6 @@
 /bower_components
 /node_modules
+/storage/configuration
 .vscode
-serverConfig.json
 typings
 jsconfig.json
